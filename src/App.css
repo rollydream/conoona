@@ -1,0 +1,40 @@
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin-block-end: 0;
+}
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.boxCnt{
+  display: flex;
+  justify-content: center;
+  border: 5px solid #000;
+  font-size:15px;
+  text-align:center;
+  height:480px;
+}
+.boxImg{
+  width:340px;
+  height:340px;
+  margin-top:10px;
+  border:0;
+}
+.boxImg img{
+  display:inline-block;
+  width:100%;
+}
+.boxBtn{
+  display: flex;
+  justify-content: center;
+  margin-top:20px;
+}
+.boxBtn button + button{margin-left:20px}
