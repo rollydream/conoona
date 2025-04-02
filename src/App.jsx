@@ -27,15 +27,43 @@ const choice = {
 }
 function App() {
   const [userSelect, setUserSelect] = useState(null)
+  const [computerSelect, setComputerSelect] = useState(null)
+  const [result, setResult] = useState("")
   const play= (userChoice) => {
     setUserSelect(choice[userChoice])
+    let computerChoice = randomChoice()
+    setComputerSelect(computerChoice)
+    setResult(judgement(choice[userChoice],computerChoice))
   };
+
+  const judgement = (user, computer) =>{
+    
+    if (user.name == computer.name) {
+      return "tie";
+    } else if (user.name == "Rock")
+      return computer.name == "Scissors" ? "win" : "lose";
+    else if (user.name == "Scissors")
+      return computer.name == "Paper" ? "win" : "lose";
+    else if (user.name == "Paper")
+      return computer.name == "Rock" ? "win" : "lose";
+
+  }
+  const randomChoice=()=>{
+    // 객체의 키 값만 뽑아서 배열로 만들어주는 함수
+    let itemArray = Object.keys(choice)
+    // Math.floor : 소수 점 아래 버림
+    let randomItem = Math.floor(Math.random() * itemArray.length)
+    let final = itemArray[randomItem]
+
+    return choice[final]
+  }
+
   return (
     <>
       <div className="wrapPlay">
-        <div className="boxCnt">
-          <Box title="You" item={userSelect}/>
-          <Box title="Computer" />
+        <div className={`boxCnt ${result}`}>
+          <Box title="You" item={userSelect} result={result}/>
+          <Box title="Computer" item={computerSelect} result={result}/>
         </div>
         <div className="boxBtn">
           <button onClick={() => play("scissors")}>가위</button>

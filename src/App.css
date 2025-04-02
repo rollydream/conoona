@@ -1,30 +1,38 @@
-body,
-h1,
-h2,
-h3,
-h4,
-p,
-figure,
-blockquote,
-dl,
-dd {
-  margin-block-end: 0;
+.wrapPlay{
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  height: calc(100vh - 5rem);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
+.boxCnt {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 0;
 }
-.boxCnt{
+.boxCnt > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border: 10px solid rgb(1, 255, 86);
+}
+.boxCnt > div:first-child{
+  border-right:5px solid rgb(1, 255, 86);
+}
+.boxCnt > div + div{
+  border-left:5px solid rgb(1, 255, 86);
+}
+
+.boxImg{
   display: flex;
   justify-content: center;
-  border: 5px solid #000;
-  font-size:15px;
-  text-align:center;
-  height:480px;
-}
-.boxImg{
-  width:340px;
-  height:340px;
+  width:200px;
   margin-top:10px;
   border:0;
 }
@@ -38,3 +46,10 @@ dd {
   margin-top:20px;
 }
 .boxBtn button + button{margin-left:20px}
+
+.win {color: green;}
+.win .boxImg{border: 10px solid green;}
+.lose {color: red;}
+.lose .boxImg{border: 5px solid red;}
+.tie {color: black;}
+.tie .boxImg{border: 5px solid black;}
