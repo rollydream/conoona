@@ -1,6 +1,6 @@
 import { useState } from "react"
-import Box from './component/Box.jsx'
-import './App.css'
+import Box from './component_250402/Box.jsx'
+import './component_250402/common.css'
 // 1. 박스 2개 만들기
 // 2. 가위 바위 보 버튼
 // 3. 버튼을 클릭하면 값이 박스에 보임
@@ -25,7 +25,7 @@ const choice = {
     img: "https://thumb.silhouette-ac.com/t/26/2654adfd65b6ca4a8ac25a9f727d2262_t.jpeg",
   },
 }
-function App() {
+function App_250402() {
   const [userSelect, setUserSelect] = useState(null)
   const [computerSelect, setComputerSelect] = useState(null)
   const [result, setResult] = useState("")
@@ -75,4 +75,4 @@ function App() {
   )
 }
 
-export default App
+export default App_250402
