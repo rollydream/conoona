@@ -8,6 +8,11 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Spinner from 'react-bootstrap/Spinner';
 
+//VITE에서 API 키 숨김
+// 1. .env 파일 생성 후(VITE_API_KYE="") 작성
+// 2. 파일로 돌아와서 import.mata.env.(VITE_API_KYE)로 가져옴
+const OPENWEATHER_API_KEY = import.meta.env.VITE_OPENWEAHTER_API_KYE
+
 // 부트 스트랩 설치 
 // yarn 설치
 // yarn add react-bootstrap bootstrap
@@ -26,6 +31,8 @@ import Spinner from 'react-bootstrap/Spinner';
 const App_250404 = () => {
   let [loading, setLoading] =useState(false)
   const [weather, setWeather] = useState(null)
+  
+
 
   const getCurrentPosition = () =>{
     navigator.geolocation.getCurrentPosition((position) => {
@@ -39,7 +46,7 @@ const App_250404 = () => {
 
   const getWeatherByCurrentLocation = async (lat, lon) => {
     try {
-      let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=7ea5ab31b61eec4358dcd14050970ce4&units=metric`;
+      let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_API_KEY}&units=metric`;
       const res = await fetch(url);
       const data = await res.json();
 
