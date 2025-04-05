@@ -31,8 +31,8 @@ const OPENWEATHER_API_KEY = import.meta.env.VITE_OPENWEAHTER_API_KYE
 const App_250404 = () => {
   let [loading, setLoading] =useState(false)
   const [weather, setWeather] = useState(null)
-  
-
+  const [city, setCity]=useState('')
+  const cities = ['paris','new york', 'tokyo', 'seoul']
 
   const getCurrentPosition = () =>{
     navigator.geolocation.getCurrentPosition((position) => {
@@ -47,8 +47,8 @@ const App_250404 = () => {
   const getWeatherByCurrentLocation = async (lat, lon) => {
     try {
       let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_API_KEY}&units=metric`;
-      const res = await fetch(url);
-      const data = await res.json();
+      let res = await fetch(url);
+      let data = await res.json();
 
       setWeather(data);
       setLoading(false);
@@ -57,31 +57,47 @@ const App_250404 = () => {
     }
   };
 
+  const getWeatherByCity= async ()=>{
+    let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${OPENWEATHER_API_KEY}&units=metric`;
+    let res = await fetch(url);
+    let data = await res.json();
+    console.log(data)
+    setWeather(data)
+    setLoading(false);
+  }
+
   useEffect(()=>{
     setLoading(true);
-    getCurrentPosition()
-  },[])
+    if(city == ""){
+      getCurrentPosition()
+    }else{
+      getWeatherByCity()
+    }
+  }, [city])
+
 
   return (
     <>
-      {loading? (
-        <Container fluid className="d-flex align-items-center justify-content-center" style={{ height: '100vh' }} >
-          <Spinner />
-        </Container>
-      ) : (
-        <Container fluid className="d-flex flex-column align-items-center justify-content-center" style={{ height: '100vh' }} >
-          <Row>
-            <Col>
-              <Box weather={weather}/>
+      <Container fluid className="min-vh-100 d-flex flex-column justify-content-center align-items-center py-4">
+        {loading ? (
+          <Row className="w-100 justify-content-center align-items-center" style={{ height: '60vh' }}>
+            <Col xs="auto">
+              <Spinner animation="border" variant="primary" />
             </Col>
           </Row>
-          <Row>
-            <Col>
-              <BtnBox />
-            </Col>
-          </Row>
-        </Container>
-      )}
+        ) : (
+          <>
+            <Row className="mb-4 w-100 justify-content-center">
+              <Col xs={12} md={6}>
+                <Box weather={weather} />
+              </Col>
+            </Row>
+            <Row className="g-2 w-100 justify-content-center">
+              <BtnBox cities={cities} setCity={setCity} selectedCity={city} />
+            </Row>
+          </>
+        )}
+      </Container>
     </>
   )
 }
