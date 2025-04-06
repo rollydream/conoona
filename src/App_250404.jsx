@@ -8,6 +8,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Spinner from 'react-bootstrap/Spinner';
 
+const cities = ['paris','new york', 'tokyo', 'seoul']
 //VITE에서 API 키 숨김
 // 1. .env 파일 생성 후(VITE_API_KYE="") 작성
 // 2. 파일로 돌아와서 import.mata.env.(VITE_API_KYE)로 가져옴
@@ -29,10 +30,10 @@ const OPENWEATHER_API_KEY = import.meta.env.VITE_OPENWEAHTER_API_KYE
 // https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
 
 const App_250404 = () => {
-  let [loading, setLoading] =useState(false)
+  const [loading, setLoading] =useState(false)
   const [weather, setWeather] = useState(null)
-  const [city, setCity]=useState('')
-  const cities = ['paris','new york', 'tokyo', 'seoul']
+  const [city, setCity] = useState(null);
+
 
   const getCurrentPosition = () =>{
     navigator.geolocation.getCurrentPosition((position) => {
@@ -47,8 +48,8 @@ const App_250404 = () => {
   const getWeatherByCurrentLocation = async (lat, lon) => {
     try {
       let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_API_KEY}&units=metric`;
-      let res = await fetch(url);
-      let data = await res.json();
+      const res = await fetch(url);
+      const data = await res.json();
 
       setWeather(data);
       setLoading(false);
@@ -59,22 +60,31 @@ const App_250404 = () => {
 
   const getWeatherByCity= async ()=>{
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${OPENWEATHER_API_KEY}&units=metric`;
-    let res = await fetch(url);
-    let data = await res.json();
+    const res = await fetch(url);
+    const data = await res.json();
     console.log(data)
     setWeather(data)
     setLoading(false);
   }
 
   useEffect(()=>{
-    setLoading(true);
-    if(city == ""){
+    
+    if(city == null){
+      setLoading(true);
       getCurrentPosition()
     }else{
+      setLoading(true);
       getWeatherByCity()
     }
   }, [city])
 
+  const handleCityChange = (city) => {
+    if (city === "current") {
+      setCity(null);
+    } else {
+      setCity(city);
+    }
+  };
 
   return (
     <>
@@ -93,7 +103,7 @@ const App_250404 = () => {
               </Col>
             </Row>
             <Row className="g-2 w-100 justify-content-center">
-              <BtnBox cities={cities} setCity={setCity} selectedCity={city} />
+              <BtnBox cities={cities} handleCityChange={handleCityChange} selectedCity={city} />
             </Row>
           </>
         )}
