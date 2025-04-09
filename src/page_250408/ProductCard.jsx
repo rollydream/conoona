@@ -3,12 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { Card, Badge } from "react-bootstrap";
 
 const ProductCard = ({ item }) => {
+
   const navigate = useNavigate();
+  // id는 상품 id
   const showProduct = (id) => {
+    // 동적으로 넣을 값 백틱 ` ${}`
+    // 새로운 페이지로 넘어가고 싶으면 navigate
     navigate(`/product/${id}`);
   };
   return (
-    <Card className="h-100 shadow-sm" style={{ width: "18rem", cursor: "pointer" }} onClick={() => showProduct(item.id)}>
+    <Card className="h-100 shadow-sm" style={{ cursor: "pointer" }} onClick={() => showProduct(item.id)}>
        <Card.Img
         src={item?.img}
         alt={item?.title}

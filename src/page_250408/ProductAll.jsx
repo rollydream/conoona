@@ -41,7 +41,7 @@ const ProductAll = () => {
         <Row className="g-4">
           {products.length > 0 &&
             products.map((item) => (
-              <Col key={item.id}>
+              <Col lg={3} key={item.id}>
                 <ProductCard item={item} />
               </Col>
             ))}
