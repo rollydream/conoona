@@ -2,8 +2,8 @@ import React from 'react'
 import { Container, Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
-const Login = ({setAuthenticate}) => {
-  // id랑 pw입력하면 자동 로그인되었다고 가정함함
+const Login = ({setAuthenticate, to}) => {
+  // id랑 pw입력하면 자동 로그인되었다고 가정함
   const navigate = useNavigate()
   const loginUser = (event) =>{
     event.preventDefault() // form 기본 이벤트 막음
@@ -14,7 +14,7 @@ const Login = ({setAuthenticate}) => {
 	return (
     <Container>
       {/* form 입력 받은 정보를 백앤드로 전달 
-        submit 서버에 요청하면서 리프레쉬됨됨
+        submit 서버에 요청하면서 리프레쉬됨
       */}
       <Form onSubmit={(event)=> loginUser(event)}>
         <Form.Group  className="mb-3" controlId="formBasicEmail">

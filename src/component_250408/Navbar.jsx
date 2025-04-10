@@ -24,6 +24,7 @@ const Navbar = ({ authenticate, setAuthenticate }) => {
   let [width, setWidth] = useState(0);
   let navigate = useNavigate();
   const onCheckEnter = (event) => {
+    // 입력한 검색어(event.target.value)를 읽어와서 url(navigate)을 바꿔준다
     if (event.key === "Enter") {
       navigate(`?q=${event.target.value}`);
     }
@@ -78,7 +79,10 @@ const Navbar = ({ authenticate, setAuthenticate }) => {
 
         <div className="search-box">
           <FontAwesomeIcon icon={faSearch} />
-          <input type="text" placeholder="제품검색" onKeyPress={onCheckEnter} />
+          {/* onKeyPress => onKeyDown React에서 권장함
+            키를 입력하면 호출되는 이벤트
+          */}
+          <input type="text" placeholder="제품검색" onKeyDown={onCheckEnter} />
         </div>
       </div>
     </div>

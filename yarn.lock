@@ -361,6 +361,11 @@
     "@eslint/core" "^0.12.0"
     levn "^0.4.1"
 
+"@fontsource/gaegu@^5.2.5":
+  version "5.2.5"
+  resolved "https://registry.yarnpkg.com/@fontsource/gaegu/-/gaegu-5.2.5.tgz#3fc0b34f5b9a2bb44732dcc542fe9e11188a0ca5"
+  integrity sha512-paTH/fZYqN93HF1F71I3L/x4KYZpGND1G4slAHHfR3AKppv06LgB7m6QlutqAtnI73a47K9XWxK7C5iCVEvhnQ==
+
 "@fortawesome/fontawesome-common-types@6.7.2":
   version "6.7.2"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-6.7.2.tgz#7123d74b0c1e726794aed1184795dbce12186470"

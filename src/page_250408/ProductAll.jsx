@@ -11,8 +11,7 @@ const ProductAll = () => {
   const getProducts = async () => {
     try {
       let keyword = query.get("q") || "";
-      let url = `https://my-json-server.typicode.com/rollydream/conoona/products${keyword}` 
-      // let url = `http://localhost:5000/products${keyword}`;
+      let url = `https://my-json-server.typicode.com/rollydream/conoona/products?q=${keyword}`;
       let response = await fetch(url);
       let data = await response.json();
       if (data.length < 1) {
