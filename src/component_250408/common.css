@@ -101,7 +101,7 @@ body {
   width: 100%;
 }
 
-.card:hover{
+.card.cardBox:hover{
   transform: scale(1.1);
   z-index: 1;
 }

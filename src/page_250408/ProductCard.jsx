@@ -12,7 +12,7 @@ const ProductCard = ({ item }) => {
     navigate(`/product/${id}`);
   };
   return (
-    <Card className="h-100 shadow-sm" style={{ cursor: "pointer" }} onClick={() => showProduct(item.id)}>
+    <Card className="h-100 shadow-sm cardBox" style={{ cursor: "pointer" }} onClick={() => showProduct(item.id)}>
        <Card.Img
         src={item?.img}
         alt={item?.title}
