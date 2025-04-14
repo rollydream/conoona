@@ -20,15 +20,18 @@ const ContactForm = () => {
   const validatePhoneNumber = (value) => /^\d+$/.test(value.trim())
 
   const handleAddContact = () => {
-    const isNameValid = validateName(name)
-    const isPhoneValid = validatePhoneNumber(phoneNumber)
-
+    const trimmedName = name.trim()
+    const trimmedPhone = phoneNumber.trim()
+  
+    const isNameValid = validateName(trimmedName)
+    const isPhoneValid = validatePhoneNumber(trimmedPhone)
+  
     setNameError(!isNameValid)
     setPhoneNumberError(!isPhoneValid)
-
+  
     if (!isNameValid || !isPhoneValid) return
-
-    addContact(name.trim(), phoneNumber.trim())
+  
+    addContact(trimmedName, trimmedPhone)
     setName('')
     setPhoneNumber('')
   }
@@ -52,28 +55,42 @@ const ContactForm = () => {
         variant="outlined"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        onBlur={() => setNameError(!validateName(name))}
         fullWidth
         sx={{ bgcolor: 'white', borderRadius: 2 }}
         size="small"
         error={nameError}
-        helperText={nameError ? '한글과 영문만 입력 가능합니다.' : ''}
-        inputProps={{ inputMode: 'text' }}
+        slotProps={{
+          input: {
+            inputMode: 'text',
+          },
+        }}
       />
+      {nameError && (
+        <FormHelperText sx={{ color: 'error.main', ml: 1 }}>
+          문자만 입력 가능합니다.
+        </FormHelperText>
+      )}
 
       <TextField
         label="전화번호"
         variant="outlined"
         value={phoneNumber}
         onChange={(e) => setPhoneNumber(e.target.value)}
-        onBlur={() => setPhoneNumberError(!validatePhoneNumber(phoneNumber))}
         fullWidth
         sx={{ bgcolor: 'white', borderRadius: 2 }}
         size="small"
         error={phoneNumberError}
-        helperText={phoneNumberError ? '숫자만 입력해주세요.' : ''}
-        inputProps={{ inputMode: 'numeric' }}
+        slotProps={{
+          input: {
+            inputMode: 'numeric',
+          },
+        }}
       />
+      {phoneNumberError && (
+        <FormHelperText sx={{ color: 'error.main', ml: 1 }}>
+          숫자만 입력해주세요.
+        </FormHelperText>
+      )}
 
       <Button
         variant="contained"
