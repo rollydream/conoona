@@ -1,18 +1,34 @@
-import {TextField,Box,Button,Typography,FormHelperText} from '@mui/material'
-import React from 'react'
-import { useState } from 'react'
+import {
+  TextField,
+  Box,
+  Button,
+  Typography,
+  FormHelperText,
+} from '@mui/material'
+import React, { useState } from 'react'
 import usePhoneBookStore from '../stores_250413/usePhoneBookStore'
 
 const ContactForm = () => {
   const [name, setName] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
-  const addContact = usePhoneBookStore((state) => state.addContact)
   const [nameError, setNameError] = useState(false)
   const [phoneNumberError, setPhoneNumberError] = useState(false)
-  // 추가
+
+  const addContact = usePhoneBookStore((state) => state.addContact)
+
+  const validateName = (value) => /^[a-zA-Z가-힣]+$/.test(value.trim())
+  const validatePhoneNumber = (value) => /^\d+$/.test(value.trim())
+
   const handleAddContact = () => {
-    if (!name.trim() || !phoneNumber.trim()) return
-    addContact(name, phoneNumber)
+    const isNameValid = validateName(name)
+    const isPhoneValid = validatePhoneNumber(phoneNumber)
+
+    setNameError(!isNameValid)
+    setPhoneNumberError(!isPhoneValid)
+
+    if (!isNameValid || !isPhoneValid) return
+
+    addContact(name.trim(), phoneNumber.trim())
     setName('')
     setPhoneNumber('')
   }
@@ -30,63 +46,35 @@ const ContactForm = () => {
       >
         연락처
       </Typography>
+
       <TextField
         label="이름"
         variant="outlined"
         value={name}
-        onChange={(e) => {
-          const value = e.target.value
-          //.test(value) 일치 여부를 빠르게 확인 
-          if (/^[a-zA-Z가-힣\s]*$/.test(value)) {
-            setName(value)
-            setNameError(false)
-          } else {
-            setNameError(true)
-          }
-        }}
+        onChange={(e) => setName(e.target.value)}
+        onBlur={() => setNameError(!validateName(name))}
         fullWidth
         sx={{ bgcolor: 'white', borderRadius: 2 }}
         size="small"
         error={nameError}
-        slotProps={{
-          input: {
-            inputMode: 'text',
-          },
-        }}
+        helperText={nameError ? '한글과 영문만 입력 가능합니다.' : ''}
+        inputProps={{ inputMode: 'text' }}
       />
-      {nameError && (
-        <FormHelperText sx={{ color: 'error.main', ml: 1 }}>
-          문자만 입력 가능합니다.
-        </FormHelperText>
-      )}
+
       <TextField
         label="전화번호"
         variant="outlined"
         value={phoneNumber}
-        onChange={(e) => {
-          const value = e.target.value
-          if (/^\d*$/.test(value)) {
-            setPhoneNumber(value)
-            setPhoneNumberError(false)
-          } else {
-            setPhoneNumberError(true)
-          }
-        }}
+        onChange={(e) => setPhoneNumber(e.target.value)}
+        onBlur={() => setPhoneNumberError(!validatePhoneNumber(phoneNumber))}
         fullWidth
         sx={{ bgcolor: 'white', borderRadius: 2 }}
         size="small"
         error={phoneNumberError}
-        slotProps={{
-          input: {
-            inputMode: 'numeric',
-          },
-        }}
+        helperText={phoneNumberError ? '숫자만 입력해주세요.' : ''}
+        inputProps={{ inputMode: 'numeric' }}
       />
-      {phoneNumberError && (
-        <FormHelperText sx={{ color: 'error.main', ml: 1 }}>
-          숫자만 입력해주세요.
-        </FormHelperText>
-      )}
+
       <Button
         variant="contained"
         onClick={handleAddContact}
