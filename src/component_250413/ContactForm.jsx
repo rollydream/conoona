@@ -67,7 +67,7 @@ const ContactForm = () => {
       />
       {nameError && (
         <FormHelperText sx={{ color: 'error.main', ml: 1 }}>
-          문자만 입력 가능합니다.
+          문자만 입력해주세요.
         </FormHelperText>
       )}
 
