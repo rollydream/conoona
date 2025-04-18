@@ -1,5 +1,5 @@
 import React from 'react'
-import './Banner.Style.css'
+import './Banner.style.css'
 import { usePopularMoviesQuery } from '../../../../hooks_240419/usePopularMovies'
 import Spinner from 'react-bootstrap/Spinner';
 import Alert from 'react-bootstrap/Alert';
